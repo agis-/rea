@@ -1,5 +1,4 @@
-#ifndef REA_MAIN_H
-#define REA_MAIN_H
+#pragma once
 
 #define MAX_CLIENTS 4096
 #define RECV_BUFFER 4096
@@ -113,5 +112,3 @@ Client *make_client(int fd);
  * bookkeeping.
  */
 void close_client(int fd);
-
-#endif /* REA_MAIN_H */
