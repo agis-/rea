@@ -1,13 +1,16 @@
-VERSION=0.0.1
+PROGRAMS=rea
+CSOURCES=rea.c
+srcdir=.
+DEPENDENCIES=http-parser
 
-rea: http_parser.c rea.c
-	gcc -Wall http_parser.c rea.c -o rea
+INCLUDES=-I$(srcdir) -I$(srcdir)/http-parser
+CFLAGS=-O0 -g3 -Wall #-Werror
+LDFLAGS=
+LIBS=-lhttp-parser -L$(srcdir)/http-parser
 
-clean:
-	@rm -f rea
+include $(srcdir)/Makefile.mk
 
-docker-image: Dockerfile rea
-	docker build -t rea:$(VERSION) .
+.PHONY:
 
-docker-run: docker-image
-	docker run --rm -p 8080:80 rea:$(VERSION)
+rea:$(OBJECTS)
+	$(LINK.cc) -o $@ $(OBJECTS) $(LDFLAGS) $(LIBS)
